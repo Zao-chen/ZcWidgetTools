@@ -26,7 +26,7 @@ private:
     QPushButton* m_btnPrev;
 
     void setupUI();
-    void createPages();
+    void createStackedWidget();
 };
 
 #endif // MAINWINDOW_H

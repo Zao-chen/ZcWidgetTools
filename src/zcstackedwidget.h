@@ -14,16 +14,8 @@ class ZCWIDGETTOOLS_EXPORT ZcStackedWidget : public QStackedWidget
 public:
     explicit ZcStackedWidget(QWidget *parent = nullptr);
 
-    void slideToIndex(int targetIndex);
-    void slideToWidget(QWidget* widget);
-    void setAnimationDuration(int ms);
-    void setAnimationOffset(double factor);
-    void setAnimationCurve(const QEasingCurve& curve);
-    void useWin11Curve();
-    bool isAnimating() const { return m_slideAnimating; }
-
-public slots:
-    void setCurrentIndexAnimated(int index);
+    void setCurrentIndex(int targetIndex);
+    void setCurrentWidget(QWidget* widget);
 
 private:
     bool m_slideAnimating;

@@ -12,21 +12,16 @@ ZcStackedWidget::ZcStackedWidget(QWidget *parent)
 
 void ZcStackedWidget::setupDefaultCurve()
 {
-    // Win11 风格：极致蓄力 + 瞬间爆发
+    //Fluent风格曲线
     m_easingCurve = QEasingCurve(QEasingCurve::BezierSpline);
     m_easingCurve.addCubicBezierSegment(
-        QPointF(0.995, 0.0005),  // 前 99.5% 时间几乎完全静止
-        QPointF(0.0005, 1.00),   // 最后 0.5% 瞬间完成
+        QPointF(0.995, 0.0005),
+        QPointF(0.0005, 1.00),
         QPointF(1.00, 1.00)
         );
 }
 
-void ZcStackedWidget::useWin11Curve()
-{
-    setupDefaultCurve();
-}
-
-void ZcStackedWidget::slideToIndex(int targetIndex)
+void ZcStackedWidget::setCurrentIndex(int targetIndex)
 {
     if (m_slideAnimating) return;
 
@@ -38,7 +33,6 @@ void ZcStackedWidget::slideToIndex(int targetIndex)
     if (!from || !to) return;
 
     m_slideAnimating = true;
-    setEnabled(false); // 动画期间禁交互
 
     const QRect r = rect();
     const int w = r.width();
@@ -76,7 +70,6 @@ void ZcStackedWidget::slideToIndex(int targetIndex)
         from->move(0, 0);
         to->move(0, 0);
 
-        setEnabled(true);
         m_slideAnimating = false;
 
         group->deleteLater();
@@ -85,30 +78,11 @@ void ZcStackedWidget::slideToIndex(int targetIndex)
     group->start();
 }
 
-void ZcStackedWidget::slideToWidget(QWidget* widget)
+void ZcStackedWidget::setCurrentWidget(QWidget* widget)
 {
     int index = indexOf(widget);
     if (index >= 0) {
-        slideToIndex(index);
+        setCurrentIndex(index);
     }
 }
 
-void ZcStackedWidget::setCurrentIndexAnimated(int index)
-{
-    slideToIndex(index);
-}
-
-void ZcStackedWidget::setAnimationDuration(int ms)
-{
-    m_animationDuration = ms;
-}
-
-void ZcStackedWidget::setAnimationOffset(double factor)
-{
-    m_offsetFactor = factor;
-}
-
-void ZcStackedWidget::setAnimationCurve(const QEasingCurve& curve)
-{
-    m_easingCurve = curve;
-}

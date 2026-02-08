@@ -10,9 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupUI();
-    createPages();
+    createStackedWidget();
 
-    setWindowTitle("ZcStackedWidget 演示");
+    setWindowTitle("ZcWidgetTools 演示");
     resize(800, 600);
 }
 
@@ -39,27 +39,29 @@ void MainWindow::setupUI()
     mainLayout->addWidget(m_stack);
     mainLayout->addLayout(btnLayout);
 
-    // 连接信号
-    connect(m_btnNext, &QPushButton::clicked, this, [=]() {
-        if (!m_stack->isAnimating()) {
-            int next = (m_stack->currentIndex() + 1) % m_stack->count();
-            m_stack->slideToIndex(next);
+    //连接翻页按钮信号
+    connect(m_btnNext, &QPushButton::clicked, this, [=]()
+    {
+        int current = m_stack->currentIndex();
+        if (current < m_stack->count() - 1) {
+            m_stack->setCurrentIndex(current + 1);
         }
     });
-
-    connect(m_btnPrev, &QPushButton::clicked, this, [=]() {
-        if (!m_stack->isAnimating()) {
-            int prev = (m_stack->currentIndex() - 1 + m_stack->count()) % m_stack->count();
-            m_stack->slideToIndex(prev);
+    connect(m_btnPrev, &QPushButton::clicked, this, [=]()
+    {
+        int current = m_stack->currentIndex();
+        if (current > 0) {
+            m_stack->setCurrentIndex(current - 1);
         }
     });
 }
 
-void MainWindow::createPages()
+/*堆叠窗口*/
+void MainWindow::createStackedWidget()
 {
     QStringList colors = {"#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4"};
-
-    for (int i = 0; i < colors.size(); ++i) {
+    for (int i = 0; i < colors.size(); ++i)
+    {
         QWidget* page = new QWidget();
         page->setStyleSheet(QString("background-color: %1;").arg(colors[i]));
 
