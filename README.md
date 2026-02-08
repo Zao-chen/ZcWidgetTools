@@ -1,13 +1,14 @@
 # ZcWidgetTools
 
-🎨 **基于 Qt 的现代化控件库 - ElaWidgetTools 的最佳伴侣** 🎨
+🎨 **基于QT-Widget开发的FluentUI风格的组件库 - ElaWidgetTools 的最佳伴侣** 🎨
 
 [![GitHub Release](https://img.shields.io/github/v/release/Zao-chen/ZcWidgetTools?include_prereleases&style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/releases)
 [![GitHub License](https://img.shields.io/github/license/Zao-chen/ZcWidgetTools?style=for-the-badge)](LICENSE)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Zao-chen/ZcWidgetTools?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/commits)
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Zao-chen/ZcWidgetTools/total?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/releases)
 [![GitHub Repo stars](https://img.shields.io/github/stars/Zao-chen/ZcWidgetTools?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/stargazers)
-[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Zao-chen/ZcWidgetTools?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/Zao-chen/ZcWidgetTools?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/issues)
+[![GitHub PULLS](https://img.shields.io/github/issues-pr/Zao-chen/ZcWidgetTools?style=for-the-badge)](https://github.com/Zao-chen/ZcWidgetTools/pulls)
 
 ### [English](/README.md) 中文
 
@@ -32,7 +33,7 @@ ElaWidgetTools 提供了完整的 Fluent UI 组件库，而 **ZcWidgetTools** �
 ### 📋 Step 1 - 下载库文件
 
 1. 在 [Release 页面](https://github.com/Zao-chen/ZcWidgetTools/releases) 下载最新版本。
-2. 解压后得到lib和include文件夹。
+2. 解压后得到 lib 和 include 文件夹。
 
 ### 📁 Step 2 - 集成到你的项目
 
@@ -62,26 +63,6 @@ add_custom_command(TARGET YourProject POST_BUILD
     COMMENT "Copying ZcWidgetTools.dll"
 )
 ```
-
-### 💻 Step 4 - 开始使用
-
-在你的代码中引入并使用：
-
-将stackedWidget提升到ZcstackedWidget，
-
-并使用
-
-```c++
-stack->slideToIndex(index);
-```
-
-来替代
-
-```c++
-stack->setCurrentIndex(index)
-```
-
----
 
 ## ❓ 常见问题 (F&Q)
 
