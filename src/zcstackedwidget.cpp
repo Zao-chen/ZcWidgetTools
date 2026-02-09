@@ -18,7 +18,7 @@ void ZcStackedWidget::setupDefaultCurve()
         QPointF(0.995, 0.0005),
         QPointF(0.0005, 1.00),
         QPointF(1.00, 1.00)
-        );
+    );
 }
 
 void ZcStackedWidget::setCurrentIndex(int targetIndex)
