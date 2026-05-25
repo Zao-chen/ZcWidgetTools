@@ -38,8 +38,7 @@ jobs:
         uses: uraimo/run-on-arch-action@v2
         with:
           arch: armv7
-          distro: bullseye
-          base_image: debian:bookworm
+          distro: bookworm
           githubToken: ${{ github.token }}
           install: |
             apt-get update
@@ -56,6 +55,7 @@ jobs:
             BUILD_TYPE="${{ env.BUILD_TYPE }}"
             PACKAGE_DIR="${{ env.PACKAGE_DIR }}"
 
+            uname -m
             rm -rf build-armhf package
             cmake -S . -B build-armhf -G Ninja -DCMAKE_BUILD_TYPE="${BUILD_TYPE}"
             cmake --build build-armhf --target ZcWidgetTools
@@ -67,6 +67,7 @@ jobs:
             test -n "$(find "${PACKAGE_DIR}/lib/armhf" -name 'libZcWidgetTools.so*' -print -quit)"
 
             file "${PACKAGE_DIR}"/lib/armhf/*
+            file -L "${PACKAGE_DIR}"/lib/armhf/libZcWidgetTools.so | grep -Eq 'ELF 32-bit.*ARM'
             tar -C package -czf "${ARCHIVE_NAME}" ZcWidgetTools
 
       - name: Upload workflow artifact
