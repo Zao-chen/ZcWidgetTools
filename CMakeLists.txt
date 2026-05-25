@@ -11,6 +11,42 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
+if(APPLE)
+    foreach(qt_target Qt6::Widgets Qt6::Gui Qt6::Core)
+        if(TARGET ${qt_target})
+            foreach(qt_prop INTERFACE_LINK_LIBRARIES INTERFACE_LINK_OPTIONS)
+                get_target_property(qt_values ${qt_target} ${qt_prop})
+                if(qt_values)
+                    list(FILTER qt_values EXCLUDE REGEX "AGL")
+                    set_property(TARGET ${qt_target} PROPERTY ${qt_prop} "${qt_values}")
+                endif()
+            endforeach()
+        endif()
+    endforeach()
+
+    foreach(gl_target OpenGL::OpenGL OpenGL::GL OpenGL::GLU)
+        if(TARGET ${gl_target})
+            foreach(gl_prop INTERFACE_LINK_LIBRARIES INTERFACE_LINK_OPTIONS)
+                get_target_property(gl_values ${gl_target} ${gl_prop})
+                if(gl_values)
+                    list(FILTER gl_values EXCLUDE REGEX "AGL")
+                    set_property(TARGET ${gl_target} PROPERTY ${gl_prop} "${gl_values}")
+                endif()
+            endforeach()
+        endif()
+    endforeach()
+
+    if(TARGET WrapOpenGL::WrapOpenGL)
+        foreach(wrap_prop INTERFACE_LINK_LIBRARIES INTERFACE_LINK_OPTIONS)
+            get_target_property(wrap_values WrapOpenGL::WrapOpenGL ${wrap_prop})
+            if(wrap_values)
+                list(FILTER wrap_values EXCLUDE REGEX "AGL")
+                set_property(TARGET WrapOpenGL::WrapOpenGL PROPERTY ${wrap_prop} "${wrap_values}")
+            endif()
+        endforeach()
+    endif()
+endif()
+
 # ========== 构建库 ==========
 add_library(ZcWidgetTools SHARED
     src/ZcWidgetTools_global.h
